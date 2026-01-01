@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://sbf3bes4sdsp"]
+
+[ext_resource type="Script" uid="uid://bta4k0vmmcpgn" path="res://inicio.gd" id="1_htw3k"]
+[ext_resource type="Texture2D" uid="uid://c1xucstgudib7" path="res://Assets/PantallaPrincipal/portada.png" id="2_7e6sy"]
+[ext_resource type="FontFile" uid="uid://biy1f8x0mcd4m" path="res://Assets/Fuente/LLPIXEL3.ttf" id="3_x8a4r"]
+[ext_resource type="AudioStream" uid="uid://dv7cpawphdy1o" path="res://Assets/Audio/inicio.mp3" id="4_xagyt"]
+
+[node name="Inicio" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_htw3k")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_7e6sy")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 200
+text = "INVASION  "
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("3_x8a4r")
+theme_override_font_sizes/font_size = 50
+text = "PRESIONA ESPACIO PARA CONTINUAR"
+
+[node name="MusicaIntro" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_xagyt")
+autoplay = true

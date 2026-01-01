@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2ad40f3ouovg"]
+
+[ext_resource type="PackedScene" uid="uid://bnk27a0j1kdth" path="res://Assets/Personajes/Allison/alison.tscn" id="1_4v6mq"]
+[ext_resource type="PackedScene" uid="uid://ca517unwv2qnq" path="res://AlisonFinal/alien_boss.tscn" id="2_32n66"]
+
+[sub_resource type="TileSet" id="TileSet_l37t6"]
+
+[node name="AlisonFinal" type="Node2D"]
+
+[node name="Alison" parent="." instance=ExtResource("1_4v6mq")]
+position = Vector2(126, 143)
+
+[node name="AlienBoss" parent="." node_paths=PackedStringArray("animated_sprite") groups=["enemies"] instance=ExtResource("2_32n66")]
+player_path = NodePath("../Alison")
+animated_sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" parent="AlienBoss" index="2"]
+animation = &"walk"
+frame_progress = 0.0
+
+[node name="WorldMap" type="TileMap" parent="."]
+position = Vector2(600, 375)
+scale = Vector2(7.4276, 4.7238646)
+tile_set = SubResource("TileSet_l37t6")
+format = 2
+
+[editable path="AlienBoss"]

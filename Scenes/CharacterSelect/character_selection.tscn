@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0rkgnxx6wunb"]
+
+[ext_resource type="Script" uid="uid://rs0fcv3xx5r1" path="res://CharacterSelect/character_selection.gd" id="1_mo706"]
+[ext_resource type="Texture2D" uid="uid://hvn1eerl4yce" path="res://Assets/CharacterSelect/characterselect.png" id="2_oh4er"]
+[ext_resource type="FontFile" uid="uid://biy1f8x0mcd4m" path="res://Assets/Fuente/LLPIXEL3.ttf" id="3_n41j3"]
+[ext_resource type="AudioStream" uid="uid://dr0mc1rwh38ha" path="res://Assets/Audio/CharacterSelect.mp3" id="3_oh4er"]
+[ext_resource type="Texture2D" uid="uid://elvqltlg5emy" path="res://Assets/Personajes/Allison/player.png" id="4_soghh"]
+[ext_resource type="Texture2D" uid="uid://odbvxelrrj72" path="res://Assets/Personajes/Brandonson/player.png" id="5_2dw2b"]
+
+[node name="CharacterSelection" type="Control"]
+layout_mode = 3
+anchor_right = 7.243966
+anchor_bottom = 8.717888
+offset_right = -7992.2764
+offset_bottom = -5556.8794
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(7.243966, 8.717888)
+script = ExtResource("1_mo706")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.2760918
+offset_top = 0.34412006
+offset_right = 0.27612305
+offset_bottom = 0.3441162
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.006332672
+scale = Vector2(0.13797137, 0.113195375)
+texture = ExtResource("2_oh4er")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_left = -219.90717
+offset_top = 0.5735334
+offset_right = -19.907166
+offset_bottom = 252.57356
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_n41j3")
+theme_override_font_sizes/font_size = 16
+text = "ALISSON"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("4_soghh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "SELECT PLAYER"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_left = 38.790913
+offset_top = 2.523547
+offset_right = 238.79091
+offset_bottom = 202.52354
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_n41j3")
+theme_override_font_sizes/font_size = 16
+text = "BRANDON"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("5_2dw2b")
+expand_mode = 1
+stretch_mode = 5
+flip_h = true
+
+[node name="Label2" type="Label" parent="VBoxContainer2"]
+layout_mode = 2
+text = "SELECT PLAYER"
+horizontal_alignment = 1
+
+[node name="MusicaFondo" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_oh4er")
+autoplay = true

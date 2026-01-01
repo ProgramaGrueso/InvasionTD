@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb8rlyu3yqrnw"]
+
+[ext_resource type="Script" uid="uid://dxq13mtynafmc" path="res://Intro-Alison/intro_alison.gd" id="1_j3lxl"]
+[ext_resource type="VideoStream" uid="uid://b2ow40ug73cot" path="res://Intro-Alison/Alison.ogv" id="2_i3poo"]
+
+[node name="IntroAlison" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j3lxl")
+
+[node name="VideoPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("2_i3poo")
+autoplay = true
+expand = true
+
+[node name="LabelSaltar" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
