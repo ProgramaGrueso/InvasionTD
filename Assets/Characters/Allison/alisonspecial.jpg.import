@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6g87wektqmv1"
-path="res://.godot/imported/alisonspecial.jpg-4df0ebfa103164a2c858dd6a54bdf727.ctex"
+path="res://.godot/imported/alisonspecial.jpg-6a7141c713ad4be034fcb4cc65574d6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Personajes/Allison/alisonspecial.jpg"
-dest_files=["res://.godot/imported/alisonspecial.jpg-4df0ebfa103164a2c858dd6a54bdf727.ctex"]
+source_file="res://Assets/Characters/Allison/alisonspecial.jpg"
+dest_files=["res://.godot/imported/alisonspecial.jpg-6a7141c713ad4be034fcb4cc65574d6b.ctex"]
 
 [params]
 

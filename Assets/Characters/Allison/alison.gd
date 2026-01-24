@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 # -------------------------------------------------
 # 1️⃣ CONFIGURACIÓN
@@ -7,17 +8,31 @@ extends CharacterBody2D
 @export var damage_punch := 20.0
 @export var damage_finisher := 60.0
 
+# SALUD
+@export var max_health := 100.0
+var health : float
+var is_dead := false
+
+# INVULNERABILIDAD
+var is_invulnerable := false
+var invulnerability_duration := 1.5
+var invulnerability_timer := 0.0
+var flash_timer := 0.0
+
 # DASH
 @export var dash_speed := 700.0
 @export var dash_duration := 0.15
 @export var dash_cooldown := 0.5
 
-# COMBOS
+# COMBOS Y PUNTUACIÓN
 const COMBO_WINDOW := 0.5
 var combo_step := 0
 var combo_timer := 0.0
 var is_attacking_flag := false
 var last_direction := 1
+var combo_count := 0
+var total_hits := 0
+var score := 0
 
 # DASH STATE
 var is_dashing := false
@@ -29,16 +44,29 @@ var dash_cd_timer := 0.0
 @onready var pivot = $HitboxPivot
 @onready var hitbox_area = $HitboxPivot/Hitbox
 @onready var attack_area_shape = $HitboxPivot/Hitbox/CollisionShape2D
+@onready var hurtbox = $HurtBox
+
+# SEÑALES
+signal health_changed(current_health, max_health)
+signal score_changed(new_score)
+signal combo_changed(combo_count)
+signal player_died
 
 # -------------------------------------------------
 # 2️⃣ READY
 # -------------------------------------------------
 func _ready():
+	add_to_group("player")
+	health = max_health
 	sprite.animation_finished.connect(_on_animation_finished)
+	hurtbox.body_entered.connect(_on_hurtbox_body_entered)
+	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 	apply_transparent_shader()
 
 	if attack_area_shape:
 		attack_area_shape.disabled = true
+	
+	health_changed.emit(health, max_health)
 
 # -------------------------------------------------
 # 3️⃣ SHADER (TRANSPARENCIA DE BLANCOS)
@@ -63,11 +91,34 @@ void fragment() {
 # 4️⃣ PHYSICS PROCESS
 # -------------------------------------------------
 func _physics_process(delta):
+	if is_dead:
+		return
+	
+	# Invulnerabilidad timer
+	if is_invulnerable:
+		invulnerability_timer -= delta
+		flash_timer += delta * 10.0
+		
+		# Efecto de parpadeo
+		if int(flash_timer) % 2 == 0:
+			modulate.a = 0.3
+		else:
+			modulate.a = 1.0
+		
+		if invulnerability_timer <= 0:
+			is_invulnerable = false
+			modulate.a = 1.0
+			flash_timer = 0.0
+	
 	# Combo timer
 	if combo_timer > 0:
 		combo_timer -= delta
 	else:
-		combo_step = 0
+		if combo_step > 0:
+			combo_step = 0
+			if combo_count > 1:
+				combo_count = 0
+				combo_changed.emit(combo_count)
 	
 	# Dash cooldown
 	if dash_cd_timer > 0:
@@ -91,7 +142,7 @@ func _physics_process(delta):
 		return
 
 	# MOVIMIENTO NORMAL
-	if not is_attacking_flag:
+	if not is_attacking_flag and not is_invulnerable:
 		var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		if input_dir != Vector2.ZERO:
 			velocity = input_dir * speed
@@ -161,8 +212,22 @@ func _check_hit():
 	var targets = hitbox_area.get_overlapping_bodies()
 	for target in targets:
 		if target.is_in_group("enemies") and target.has_method("take_damage"):
-			var dmg = damage_finisher if combo_step == 0 else damage_punch
+			var dmg = damage_finisher if combo_step == 2 else damage_punch
 			target.take_damage(dmg)
+			
+			total_hits += 1
+			combo_count += 1
+			combo_changed.emit(combo_count)
+			
+			# Sistema de puntuación
+			var base_score = int(dmg)
+			var combo_bonus = combo_count * 10
+			var points = base_score + combo_bonus
+			score += points
+			score_changed.emit(score)
+			
+			# Reiniciar combo timer
+			combo_timer = COMBO_WINDOW
 
 # -------------------------------------------------
 # 7️⃣ ORIENTACIÓN
@@ -176,7 +241,66 @@ func actualizar_orientacion(anim):
 		sprite.flip_h = anim not in ["idle", "punch_1"]
 
 # -------------------------------------------------
-# 8️⃣ SEGURIDAD FIN DE ANIMACIÓN
+# 8️⃣ SISTEMA DE DAÑO
+# -------------------------------------------------
+func take_damage(amount: float) -> void:
+	if is_dead or is_invulnerable:
+		return
+	
+	health -= amount
+	health_changed.emit(health, max_health)
+	
+	# Efecto de retroceso
+	var tween = create_tween()
+	tween.tween_property(self, "position", position + Vector2(-last_direction * 30, 0), 0.1)
+	tween.tween_property(self, "position", position, 0.1)
+	
+	# Activar invulnerabilidad
+	is_invulnerable = true
+	invulnerability_timer = invulnerability_duration
+	
+	if health <= 0:
+		die()
+
+func die() -> void:
+	if is_dead:
+		return
+	
+	is_dead = true
+	velocity = Vector2.ZERO
+	sprite.play("idle")
+	player_died.emit()
+	
+	# Animación de muerte
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 0.5)
+	tween.tween_property(self, "scale", scale * 1.5, 0.5)
+	
+	await tween.finished
+	await get_tree().create_timer(1.0).timeout
+	get_tree().call_group("main", "show_game_over")
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemies"):
+		var damage = 10.0
+		if body.has_method("get_damage"):
+			damage = body.get_damage()
+		elif body.has("damage"):
+			damage = body.damage
+		take_damage(damage)
+
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	var parent = area.get_parent()
+	if parent.is_in_group("enemies"):
+		var damage = 10.0
+		if parent.has_method("get_damage"):
+			damage = parent.get_damage()
+		elif parent.has("damage"):
+			damage = parent.damage
+		take_damage(damage)
+
+# -------------------------------------------------
+# 9️⃣ SEGURIDAD FIN DE ANIMACIÓN
 # -------------------------------------------------
 func _on_animation_finished():
 	is_attacking_flag = false

@@ -81,7 +81,7 @@ func confirmar_seleccion():
 	# LÓGICA DE TRANSICIÓN CON EL NOMBRE CORRECTO
 	if seleccion == 0:
 		# Verifica que el nombre sea exactamente igual al de tu archivo
-		get_tree().change_scene_to_file("res://Intro-Alison/intro-alison.tscn")
+		get_tree().change_scene_to_file("res://Scenes/Intro-Alison/intro-alison.tscn")
 	else:
 		# Aquí asegúrate de que el nombre del nivel también sea correcto
 		get_tree().change_scene_to_file("res://Minijuego1.tscn")

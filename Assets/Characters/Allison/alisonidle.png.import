@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cto07o8vxyd3s"
-path="res://.godot/imported/alisonidle.png-1a56a39021f67efa423cbe044f80dcce.ctex"
+path="res://.godot/imported/alisonidle.png-f341f78f41420bf5a7489ca456b0f1dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Personajes/Allison/alisonidle.png"
-dest_files=["res://.godot/imported/alisonidle.png-1a56a39021f67efa423cbe044f80dcce.ctex"]
+source_file="res://Assets/Characters/Allison/alisonidle.png"
+dest_files=["res://.godot/imported/alisonidle.png-f341f78f41420bf5a7489ca456b0f1dd.ctex"]
 
 [params]
 

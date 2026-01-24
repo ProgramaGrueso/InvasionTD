@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://odbvxelrrj72"
-path="res://.godot/imported/player.png-71262c34cbbaeac9846089593430ed6d.ctex"
+path="res://.godot/imported/player.png-0dfe2adec4ba972558162db23354940d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Personajes/Brandonson/player.png"
-dest_files=["res://.godot/imported/player.png-71262c34cbbaeac9846089593430ed6d.ctex"]
+source_file="res://Assets/Characters/Cepre/player.png"
+dest_files=["res://.godot/imported/player.png-0dfe2adec4ba972558162db23354940d.ctex"]
 
 [params]
 

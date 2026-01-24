@@ -15,4 +15,4 @@ func _process(_delta):
 		ir_a_seleccion()
 
 func ir_a_seleccion():
-	get_tree().change_scene_to_file("res://CharacterSelect/character_selection.tscn") 
+	get_tree().change_scene_to_file("res://Scenes/CharacterSelect/character_selection.tscn") 

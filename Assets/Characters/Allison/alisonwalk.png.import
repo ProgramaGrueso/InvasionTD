@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mlicor3cx5gm"
-path="res://.godot/imported/alisonwalk.png-37ce2f815405037f2306dafb7f0c650f.ctex"
+path="res://.godot/imported/alisonwalk.png-fb1da42f3560e5b52f3f392b672e267b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Personajes/Allison/alisonwalk.png"
-dest_files=["res://.godot/imported/alisonwalk.png-37ce2f815405037f2306dafb7f0c650f.ctex"]
+source_file="res://Assets/Characters/Allison/alisonwalk.png"
+dest_files=["res://.godot/imported/alisonwalk.png-fb1da42f3560e5b52f3f392b672e267b.ctex"]
 
 [params]
 

@@ -126,6 +126,9 @@ func _on_hitbox_body_entered(body: Node) -> void:
 	if body.is_in_group("player") and body.has_method("take_damage"):
 		body.take_damage(damage)
 
+func get_damage() -> float:
+	return damage
+
 func die() -> void:
 	print("Boss derrotado")
 	queue_free()
