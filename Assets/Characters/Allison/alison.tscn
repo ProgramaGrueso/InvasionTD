@@ -1,11 +1,11 @@
 [gd_scene load_steps=26 format=3 uid="uid://bnk27a0j1kdth"]
 
-[ext_resource type="Script" uid="uid://cw4l7wflpaplf" path="res://Assets/Personajes/Allison/alison.gd" id="1_gfeud"]
-[ext_resource type="Texture2D" uid="uid://bobpn783k4olo" path="res://Assets/Personajes/Allison/alisonpunch1.jpg" id="2_52q8p"]
-[ext_resource type="Texture2D" uid="uid://cto07o8vxyd3s" path="res://Assets/Personajes/Allison/alisonidle.png" id="3_rcry0"]
-[ext_resource type="Texture2D" uid="uid://b33wxid70fcuo" path="res://Assets/Personajes/Allison/alisonpunch2.jpg" id="4_evrci"]
-[ext_resource type="Texture2D" uid="uid://mlicor3cx5gm" path="res://Assets/Personajes/Allison/alisonwalk.png" id="5_xrs15"]
-[ext_resource type="Texture2D" uid="uid://4rrsu0rovntn" path="res://Assets/Personajes/Allison/alisonwalk.jpg" id="6_km1xi"]
+[ext_resource type="Script" uid="uid://bm5s3rt32dho" path="res://Scenes/Player_Modified.gd" id="1_hcuci"]
+[ext_resource type="Texture2D" uid="uid://bobpn783k4olo" path="res://Assets/Characters/Allison/alisonpunch1.jpg" id="2_52q8p"]
+[ext_resource type="Texture2D" uid="uid://cto07o8vxyd3s" path="res://Assets/Characters/Allison/alisonidle.png" id="3_rcry0"]
+[ext_resource type="Texture2D" uid="uid://b33wxid70fcuo" path="res://Assets/Characters/Allison/alisonpunch2.jpg" id="4_evrci"]
+[ext_resource type="Texture2D" uid="uid://mlicor3cx5gm" path="res://Assets/Characters/Allison/alisonwalk.png" id="5_xrs15"]
+[ext_resource type="Texture2D" uid="uid://4rrsu0rovntn" path="res://Assets/Characters/Allison/alisonwalk.jpg" id="6_km1xi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ib3ar"]
 atlas = ExtResource("2_52q8p")
@@ -151,10 +151,7 @@ size = Vector2(45, 137)
 radius = 10.049875
 
 [node name="Alison" type="CharacterBody2D"]
-collision_mask = 2
-script = ExtResource("1_gfeud")
-damage_punch = 100.0
-damage_finisher = 250.0
+script = ExtResource("1_hcuci")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.52153337, 0.4582297)

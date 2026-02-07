@@ -46,6 +46,9 @@ var dash_cd_timer := 0.0
 @onready var attack_area_shape = $HitboxPivot/Hitbox/CollisionShape2D
 @onready var hurtbox = $HurtBox
 
+# 🆕 COMPATIBILIDAD CON MAPA BEAT'EM UP
+var map
+
 # SEÑALES
 signal health_changed(current_health, max_health)
 signal score_changed(new_score)
@@ -67,6 +70,15 @@ func _ready():
 		attack_area_shape.disabled = true
 	
 	health_changed.emit(health, max_health)
+	
+	# 🆕 CONFIGURAR COLISIONES PARA EL MAPA
+	collision_layer = 1
+	collision_mask = 1
+	
+	# 🆕 REGISTRAR EN EL SISTEMA DE SORTING DEL MAPA
+	map = get_tree().get_first_node_in_group("map")
+	if map and map.has_method("register_character"):
+		map.register_character(self)
 
 # -------------------------------------------------
 # 3️⃣ SHADER (TRANSPARENCIA DE BLANCOS)
@@ -134,6 +146,10 @@ func _physics_process(delta):
 		if dash_timer <= 0:
 			is_dashing = false
 		move_and_slide()
+		
+		# 🆕 MANTENER DENTRO DE LOS LÍMITES DEL MAPA
+		if map and map.has_method("clamp_to_bounds"):
+			global_position = map.clamp_to_bounds(global_position)
 		return
 
 	# ATAQUE (Z)
@@ -158,6 +174,10 @@ func _physics_process(delta):
 				actualizar_orientacion("idle")
 
 	move_and_slide()
+	
+	# 🆕 MANTENER DENTRO DE LOS LÍMITES DEL MAPA
+	if map and map.has_method("clamp_to_bounds"):
+		global_position = map.clamp_to_bounds(global_position)
 
 # -------------------------------------------------
 # 5️⃣ DASH
